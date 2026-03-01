@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: #FF8C00;
+  /* Tiger Orange */
+  --color-secondary: #86868b;
+  --color-accent: #1c1c1e;
+  --color-glass: rgba(22, 22, 23, 0.8);
+  --color-glass-dark: rgba(10, 10, 10, 0.9);
+  --color-tiger-gradient: linear-gradient(135deg, #FF8C00 0%, #000000 50%, #FFD700 100%);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1d1d1f;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-glass: rgba(255, 255, 255, 0.7);
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #f5f5f7;
+  --color-glass: rgba(22, 22, 23, 0.8);
+}
+
+.tiger-text {
+  background: linear-gradient(135deg, #FF8C00 0%, #FFD700 50%, #FF8C00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tricolor-text {
+  background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tricolor-bg {
+  background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+}
+
+.tiger-bg {
+  background: linear-gradient(135deg, #FF8C00 0%, #000000 50%, #FFD700 100%);
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dark .glass {
+  background: var(--color-glass-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #86868b;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

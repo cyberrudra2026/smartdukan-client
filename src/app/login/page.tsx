@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Smartphone, Mail, Lock, ArrowRight, Github } from "lucide-react";
+import { Smartphone, Mail, Lock, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -26,15 +26,17 @@ export default function LoginPage() {
 
       const data = await res.json();
 
-      if (data.token) {
+      if (res.ok && data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
+        alert("Login Successful!");
         window.location.href = "/";
       } else {
-        alert(data.message || "Login failed");
+        alert(data.message || "Login Failed");
       }
-    } catch (err) {
+    } catch (error) {
       alert("Server Error");
+      console.error(error);
     }
   };
 
@@ -43,67 +45,61 @@ export default function LoginPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-white dark:bg-zinc-900 p-10 rounded-[2.5rem] shadow-2xl border border-zinc-100 dark:border-zinc-800"
+        className="w-full max-w-md bg-white dark:bg-zinc-900 p-10 rounded-[2.5rem] shadow-2xl border"
       >
-        <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-4">
-            <Smartphone className="w-8 h-8 text-primary" />
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-orange-100 rounded-3xl flex items-center justify-center mx-auto mb-4">
+            <Smartphone className="w-8 h-8 text-orange-500" />
           </div>
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">
-            Welcome Back
-          </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 mt-2">
+          <h1 className="text-3xl font-bold">Welcome Back</h1>
+          <p className="text-gray-500 mt-2">
             Enter your credentials to access your account
           </p>
         </div>
 
-        <form className="space-y-6" onSubmit={handleLogin}>
-          <div className="space-y-2">
-            <label className="text-sm font-bold ml-1">
-              Email Address
-            </label>
-            <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div>
+            <label className="text-sm font-bold">Email</label>
+            <div className="relative mt-2">
+              <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
-                className="w-full pl-12 pr-4 py-4 rounded-2xl border"
+                className="w-full pl-10 pr-4 py-3 border rounded-xl"
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-bold ml-1">
-              Password
-            </label>
-            <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
+          <div>
+            <label className="text-sm font-bold">Password</label>
+            <div className="relative mt-2">
+              <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-12 pr-4 py-4 rounded-2xl border"
+                className="w-full pl-10 pr-4 py-3 border rounded-xl"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-primary text-white py-4 rounded-2xl font-bold text-lg flex items-center justify-center space-x-2"
+            className="w-full bg-orange-500 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-orange-600 transition"
           >
-            <span>Sign In</span>
-            <ArrowRight className="w-5 h-5" />
+            Sign In
+            <ArrowRight size={18} />
           </button>
         </form>
 
-        <p className="text-center mt-10 text-zinc-500">
-          Don't have an account?{" "}
-          <Link href="/register" className="text-primary font-bold">
+        <p className="text-center mt-6 text-gray-500">
+          Don’t have an account?{" "}
+          <Link href="/register" className="text-orange-500 font-bold">
             Sign up
           </Link>
         </p>
